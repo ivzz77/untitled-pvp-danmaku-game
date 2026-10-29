@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://mloibxr8lgnc"]
 
-[ext_resource type="Texture2D" uid="uid://crvdeimjlan4m" path="res://assets/kat.png" id="1_80nbo"]
-[ext_resource type="FontFile" uid="uid://b81or0xgqn0to" path="res://assets/arimo_bold_italic.ttf" id="2_e2o6t"]
-[ext_resource type="Texture2D" uid="uid://cc2af3a0xp3o8" path="res://assets/player_frame.svg" id="4_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://dtakdjavxmxkn" path="res://assets/kat.png" id="1_80nbo"]
+[ext_resource type="FontFile" uid="uid://crfntxfr6jngb" path="res://assets/arimo_bold_italic.ttf" id="2_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://dit66qu6xdfn1" path="res://assets/player_frame.svg" id="4_fc0e3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_feb5d"]
 sky_top_color = Color(0.72156864, 0.45490196, 0.54901963, 1)
@@ -28,7 +28,6 @@ particles_anim_v_frames = 1
 particles_anim_loop = true
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e2o6t"]
-load_path = "res://.godot/imported/ef_cmn_impact02.png-97505a382dc67a8f18c0dcde37e572bf.ctex"
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_feb5d"]
 particle_flag_disable_z = true
