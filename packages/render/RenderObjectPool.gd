@@ -1,6 +1,9 @@
 class_name RenderObjectPool
 
-# RenderObjectPool is responsible for rendering the various bullets on screen.
+# RenderObjectPool is responsible for rendering a specific bullet on the screen
+# So, everything in here has to be homogeneous!
+# The system works through basically taking an input array of BulletResults
+# and renders it, taking into account with the position
 
 const DEFAULT_MAX_LIFETIME = 0.2
 const FADE_TIME = 0.2
@@ -13,23 +16,18 @@ var _capacity: int = 0
 var _visible: int = 0
 var _cursor: int = 0
 
-var _pool: Array[TextureRect] = []
+var _pool: Array[Sprite2D] = []
 var _parent: Node2D
-var _rect: TextureRect
+var _rect: Sprite2D
 
-func _init(rect: TextureRect, parent: Node2D) -> void:
+func _init(rect: Sprite2D, parent: Node2D) -> void:
 	_original_scale = rect.scale
 	_parent = parent
 	_rect = rect
 	try_allocate(INITIAL_CAPACITY)
 
-# Call this at the beginning of a frame
-func reset_cursor() -> void:
-	# We go back to the beginning
-	_cursor = 0
-
 # Draws a bullet given that timer is the current client timer
-func draw_bullet(bullet: BulletInterval, timer: float) -> void:
+func draw_bullet(bullet: BulletCommandPool.BulletResult, timer: float) -> void:
 	var object = _pool[_cursor]
 	assert(_cursor < _capacity)
 	_cursor += 1
@@ -44,17 +42,27 @@ func draw_bullet(bullet: BulletInterval, timer: float) -> void:
 	elif timer > bullet.end - FADE_TIME:
 		# If we're despawning, play the despawn transition
 		object.modulate.a = smoothstep(1, 0, (timer - bullet.end + FADE_TIME) / FADE_TIME) 
+		object.scale = _original_scale
+	else:
+		# In between
+		object.scale = _original_scale
+		object.modulate.a = 1.0
 	
-	object.global_position = bullet.piecewise.eval(t)
+	var position = bullet.position
+	object.rotation = atan2(position.w, position.z)
+	object.global_position = Vector2(position.x, position.y)
 
-# Sets the amount of visible bullets
+# Sets the amount of visible bullets, call this at the end
+# of drawing bullets
 func commit() -> void:
 	if _visible > _cursor:
 		# We are setting less objects to be visible,
 		# so we must make some of these objects unused.
-		for i in range(_cursor - _visible):
-			_pool[_visible - i].global_position = UNUSED
+		for i in range(_cursor, _visible + 1, 1):
+			_pool[i].global_position = UNUSED
+
 	_visible = _cursor
+	_cursor = 0
 	
 func try_allocate(amount: int) -> void:
 	# We won't increase the capacity

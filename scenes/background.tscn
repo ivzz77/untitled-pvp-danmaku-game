@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://darw641k6rt7k"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_feb5d"]
+sky_top_color = Color(0.72156864, 0.45490196, 0.54901963, 1)
+sky_horizon_color = Color(0.7176471, 0.654902, 0.67058825, 1)
+ground_bottom_color = Color(0.35444516, 0.3054468, 0.2503874, 1)
+
+[sub_resource type="Sky" id="Sky_fc0e3"]
+sky_material = SubResource("ProceduralSkyMaterial_feb5d")
+
+[sub_resource type="Environment" id="Environment_7jktm"]
+background_mode = 2
+sky = SubResource("Sky_fc0e3")
+
+[sub_resource type="Environment" id="Environment_feb5d"]
+ambient_light_source = 3
+
+[node name="Background" type="SubViewportContainer" unique_id=1462042549]
+z_index = -5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1920.0
+offset_top = -1080.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=576530771]
+handle_input_locally = false
+size = Vector2i(3840, 2160)
+render_target_update_mode = 4
+
+[node name="Node3D" type="Node3D" parent="SubViewport" unique_id=1810231277]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D" unique_id=1187914946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+environment = SubResource("Environment_7jktm")
+size = 7.14
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewport/Node3D" unique_id=467314323]
+transform = Transform3D(0.85217476, 0, 0.5232573, 0, 1, 0, -0.5232573, 0, 0.85217476, 0.90469843, -3, -4.6710825)
+size = Vector3(3, 1, 3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewport/Node3D" unique_id=1714532890]
+transform = Transform3D(0.8840759, 0, -0.46734357, 0, 1, 0, 0.46734357, 0, 0.8840759, -2.0953016, -2.5, -4.6710825)
+size = Vector3(3, 2, 3)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewport/Node3D" unique_id=15346644]
+transform = Transform3D(0.9061602, 0, -0.42293462, 0, 1, 0, 0.42293462, 0, 0.9061602, 3, -1.5, -5)
+size = Vector3(1, 4, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Node3D" unique_id=925464825]
+environment = SubResource("Environment_feb5d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D" unique_id=387066909]
+transform = Transform3D(0.8689944, -0.35748327, 0.34213212, 0.042068243, 0.7422955, 0.6687509, -0.4930303, -0.56674796, 0.66008943, 0, 0, 0)
+shadow_enabled = true

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://mloibxr8lgnc"]
+
+[ext_resource type="Texture2D" uid="uid://dtakdjavxmxkn" path="res://assets/kat.png" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://darw641k6rt7k" path="res://scenes/background.tscn" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://c2tdbc633r7j0" path="res://scenes/ingame_hud.tscn" id="3_iywne"]
+[ext_resource type="Texture2D" uid="uid://5dhc453ehqut" path="res://assets/bullet.png" id="4_lbhrr"]
+
+[node name="Game" type="Node2D" unique_id=1433036589]
+
+[node name="Player1" type="Sprite2D" parent="." unique_id=348602908]
+texture_filter = 6
+texture_repeat = 1
+position = Vector2(-1542, 25)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_lnu2h")
+
+[node name="Player2" type="Sprite2D" parent="." unique_id=2018655997]
+texture_filter = 6
+texture_repeat = 1
+position = Vector2(1542, 25)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_lnu2h")
+flip_h = true
+
+[node name="Background" parent="." unique_id=1462042549 instance=ExtResource("2_lbhrr")]
+
+[node name="Hud" parent="." unique_id=903800690 instance=ExtResource("3_iywne")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=800553107]
+zoom = Vector2(0.5, 0.5)
+
+[node name="BulletSpawn" type="Node2D" parent="." unique_id=860604814]
+
+[node name="Bullet" type="Sprite2D" parent="BulletSpawn" unique_id=1824826069]
+texture = ExtResource("4_lbhrr")
