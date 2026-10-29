@@ -20,11 +20,15 @@ var times: Array[int] = []
 static func transform(what: Vector2, velocity: Vector2) -> Vector4:
 	return Vector4(what.x, what.y, velocity.x, velocity.y)
 
-func _init(p: Vector2, v: Vector2, a: Vector2):
+static func pva(p: Vector2, v: Vector2, a: Vector2) -> Piecewise:
+	return Piecewise.new(func(t: float) -> Vector4: return transform(p + v * t + a * t * t * 0.5, v))
+
+static func pv(p: Vector2, v: Vector2) -> Piecewise:
+	return Piecewise.new(func(t: float) -> Vector4: return transform(p + v * t, v))
+
+func _init(initial: Callable):
 	times.append(0)
-	funcs.append(
-		func(t: float) -> Vector4:
-			return transform(p + v * t + a * t * t / 2, v))
+	funcs.append(initial)
 	pass
 
 # Adds to the callable list...

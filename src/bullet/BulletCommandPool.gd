@@ -93,7 +93,7 @@ func summon(kind: Bullet.BulletKind, lifetime: float, path: Piecewise) -> Bullet
 	length = max(length, _wait_delay + lifetime + 1.0)
 	return self
 
-func commit() -> void:
+func commit() -> BulletCommandPool:
 	# Now, create the decomposed interval tree :3
 	var active: Dictionary[Bullet.BulletKind, Array] = {}
 	for idx in range(interval_list.size()):
@@ -123,6 +123,7 @@ func commit() -> void:
 			count = max(count, bin)
 		max_particles[name] = count
 	_committed = true
+	return self
 
 func query_bullets(timer: float) -> Array[BulletResult]:
 	# This command pool must have been committed first

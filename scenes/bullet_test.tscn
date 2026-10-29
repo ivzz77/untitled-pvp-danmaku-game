@@ -1,21 +1,27 @@
 [gd_scene format=3 uid="uid://buhufo1gfa11o"]
 
 [ext_resource type="Texture2D" uid="uid://5dhc453ehqut" path="res://assets/bullet.png" id="1_8dvgp"]
-[ext_resource type="Script" uid="uid://dlw4uiunr65fu" path="res://packages/render/test/TestBullet.gd" id="1_87sy2"]
+[ext_resource type="Script" uid="uid://dlw4uiunr65fu" path="res://src/render/test/TestBullet.gd" id="1_87sy2"]
 [ext_resource type="Texture2D" uid="uid://28kinvu1le6y" path="res://assets/heart.png" id="3_onn1p"]
 [ext_resource type="Texture2D" uid="uid://b0u2las3xkonp" path="res://assets/wide_bullet.png" id="4_ytho8"]
 
 [node name="BulletTest" type="Node2D" unique_id=1775543619]
 
-[node name="BulletSpawn" type="Node2D" parent="." unique_id=1940960460 node_paths=PackedStringArray("circle_sprite", "heart_sprite", "wide_sprite")]
+[node name="BulletSpawn" type="Node2D" parent="." unique_id=1940960460 node_paths=PackedStringArray("circle_sprite", "heart_sprite", "small_sprite", "wide_sprite")]
 position = Vector2(960, 540)
 script = ExtResource("1_87sy2")
 circle_sprite = NodePath("Bullet")
 heart_sprite = NodePath("Heart")
+small_sprite = NodePath("Small")
 wide_sprite = NodePath("Wide")
 
 [node name="Bullet" type="Sprite2D" parent="BulletSpawn" unique_id=2032027570]
 modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_8dvgp")
+
+[node name="Small" type="Sprite2D" parent="BulletSpawn" unique_id=1506148889]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_8dvgp")
 
 [node name="Heart" type="Sprite2D" parent="BulletSpawn" unique_id=808862653]

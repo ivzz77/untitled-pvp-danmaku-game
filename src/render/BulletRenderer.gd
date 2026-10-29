@@ -11,7 +11,7 @@ func add_object_pool(name: Bullet.BulletKind, rect: Sprite2D) -> void:
 	# Testing for now, needs a proper scheduler
 	# to handle object pooling soon.
 	object_pools[name] = RenderObjectPool.new(rect, self.parent)
-	object_pools[name].try_allocate(128)
+	object_pools[name].try_allocate(256)
 
 func add_command_pool(command_pool: BulletCommandPool, timer: float, position: Vector2, theta: float) -> void:
 	assert(command_pool._committed)
