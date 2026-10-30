@@ -12,6 +12,9 @@ var renderer: BulletRenderer
 @export var small_sprite: Sprite2D
 @export var wide_sprite: Sprite2D
 
+static func get_time_sec() -> float:
+	return float(Time.get_ticks_usec()) / 1e6
+
 func prepare_zigzag(n: int, count: int, radius: float, speed: float, w: float, spacing: float, delay: float) -> BulletCommandPool:
 	var pool = BulletCommandPool.new()
 	for j in range(count):
@@ -22,7 +25,7 @@ func prepare_zigzag(n: int, count: int, radius: float, speed: float, w: float, s
 			pool.summon(Bullet.BulletKind.WIDE, 3.0,
 				Piecewise.new(func(t: float) -> Vector4:
 					var phase = t * 5
-					return Piecewise.transform(velocity * t + right * acos(cos(phase)) * spacing, velocity) ))
+					return Piecewise.transform(velocity * t + right * acos(cos(phase)) * spacing, velocity)))
 			pool.wait(0.02)
 	return pool.commit()
 	
@@ -39,7 +42,7 @@ func prepare_circle_circle(n: int, count: int, radius: float, speed: float, w: f
 					var offset = Vector2.from_angle(phase)
 					
 					var phase_radius = sin(t * w) * 100 + radius
-					return Piecewise.transform(velocity * t + offset * phase_radius, velocity) ))
+					return Piecewise.transform(velocity * t + offset * phase_radius, velocity)))
 		pool.wait(delay)
 	return pool.commit()
 
@@ -92,7 +95,7 @@ func _ready() -> void:
 	renderer.add_object_pool(Bullet.BulletKind.SMALL, small_sprite)
 	renderer.add_object_pool(Bullet.BulletKind.WIDE, wide_sprite)
 	
-	var t = float(Time.get_ticks_usec()) / 1e6
+	var t = get_time_sec()
 	renderer.add_command_pool(prepare_spiral(32), t + 1.0, global_position, 0.0)
 	renderer.add_command_pool(prepare_hearts(5, 8, 0.4), t + 5.0, global_position, 0.0)
 	renderer.add_command_pool(prepare_pyramid(10, ZERO, 64, 5, 500), t + 6.0, global_position, 0.0)
@@ -100,5 +103,4 @@ func _ready() -> void:
 	renderer.add_command_pool(prepare_zigzag(8, 10, 62, 400, 1, 50, 0.5), t + 8.0, global_position, 0.0)
 
 func _physics_process(delta: float) -> void:
-	var t = float(Time.get_ticks_usec()) / 1e6
-	renderer.draw(t)
+	renderer.draw(get_time_sec())

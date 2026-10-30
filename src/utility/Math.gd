@@ -1,5 +1,9 @@
 class_name Math
 
+# Some utilities we might find pretty useful for collision detection and
+# stuff like that.
+# magical
+
 # Solves a 2x2 matrix
 func solve_2x2(a: float, b: float, c: float, d: float, x0: float, x1: float) -> Vector2:
 	# Find [a b ; c d] * lambda = x. We are finding lambda here

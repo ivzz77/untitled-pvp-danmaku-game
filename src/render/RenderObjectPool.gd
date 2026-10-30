@@ -4,6 +4,7 @@ class_name RenderObjectPool
 # So, everything in here has to be homogeneous!
 # The system works through basically taking an input array of BulletResults
 # and renders it, taking into account with the position
+# magical
 
 const DEFAULT_MAX_LIFETIME = 0.2
 const FADE_TIME = 0.2

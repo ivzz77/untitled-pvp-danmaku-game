@@ -6,6 +6,7 @@ const COMMAND_POOL_BLOCKS = 8
 # will be shot during an attack. It is very generic, and
 # allows rollback from any arbritrary time and handles
 # what bullets are inactive or active automatically.
+# magical
 
 class BulletProxy:
 	# Structure to hold the interval data. I did it this way
@@ -132,6 +133,10 @@ func query_bullets(timer: float) -> Array[BulletResult]:
 	
 	var t = timer - start
 	var block = int(t * COMMAND_POOL_BLOCKS / length)
+	if block >= COMMAND_POOL_BLOCKS:
+		# There's nothing after this point
+		return []
+	
 	var result: Array[BulletResult] = []
 	
 	# Go through the interval :3
